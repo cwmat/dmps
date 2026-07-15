@@ -1,7 +1,7 @@
+import { Suspense, lazy } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import VideoBackground from './components/VideoBackground'
 import CssAura from './components/CssAura'
-import BrainScene from './components/BrainScene'
 import PaintedText from './components/PaintedText'
 import AskButton from './components/AskButton'
 import ThinkingCycler from './components/ThinkingCycler'
@@ -9,6 +9,10 @@ import Verdict from './components/Verdict'
 import AlreadyAsked from './components/AlreadyAsked'
 import { useOracle } from './hooks/useOracle'
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion'
+
+// Code-split the ~1MB three.js scene so the UI paints immediately; the brain
+// fades in over the CSS aura a beat later.
+const BrainScene = lazy(() => import('./components/BrainScene'))
 
 export default function App() {
   const reducedMotion = usePrefersReducedMotion()
@@ -18,7 +22,9 @@ export default function App() {
     <>
       <VideoBackground />
       <CssAura />
-      <BrainScene thinking={phase === 'thinking'} reducedMotion={reducedMotion} />
+      <Suspense fallback={null}>
+        <BrainScene thinking={phase === 'thinking'} reducedMotion={reducedMotion} />
+      </Suspense>
 
       <main className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 text-center">
         <p className="mb-5 font-display text-xs font-medium uppercase tracking-[0.35em] text-neural-400">
