@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Do My Pants Stink — theme (Tailwind v4, CSS-first)
+ * Tokens under @theme generate utilities (bg-*, text-*, animate-*, ...)
+ * and are also emitted as :root CSS vars for use in plain CSS / JS.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Palette — deep space dark mode with an eerie neural glow */
+  --color-void: #05040f;
+  --color-abyss: #0a0818;
+  --color-neural-500: #7b2ff7; /* idle brain violet */
+  --color-neural-400: #a78bfa; /* synapse haze */
+  --color-charge-400: #00e5ff; /* "thinking" cyan */
+  --color-stink-400: #7cff6b; /* toxic green (verdict: YES) */
+  --color-fresh-400: #59d3ff; /* clean blue  (verdict: NO)  */
+  --color-ink: #ece9f5; /* primary text */
+  --color-ink-dim: #a49fc0; /* secondary text */
+
+  /* Type */
+  --font-display: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
+  --font-sans: system-ui, "Segoe UI", Roboto, sans-serif;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.2, 0.65, 0.3, 0.9);
+
+  /* Background "breathing" pulse for the base layer */
+  --animate-breathe: breathe 9s var(--ease-out-soft) infinite;
+  @keyframes breathe {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.08);
+    }
+  }
+
+  /* Soft glow pulse for the call-to-action button */
+  --animate-glow: glow 3.2s var(--ease-out-soft) infinite;
+  @keyframes glow {
+    0%,
+    100% {
+      box-shadow:
+        0 0 0 0 rgb(123 47 247 / 0.55),
+        0 0 22px 2px rgb(123 47 247 / 0.25);
+    }
+    50% {
+      box-shadow:
+        0 0 0 6px rgb(123 47 247 / 0),
+        0 0 40px 10px rgb(123 47 247 / 0.4);
+    }
+  }
+}
+
+/* Base document — dark, full-height, no horizontal scroll */
+:root {
+  color-scheme: dark;
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: var(--color-void);
+}
+
+/* Respect reduced motion globally as a backstop to per-component handling */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
