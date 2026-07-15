@@ -4,6 +4,7 @@ import BrainScene from './components/BrainScene'
 import PaintedText from './components/PaintedText'
 import AskButton from './components/AskButton'
 import ThinkingCycler from './components/ThinkingCycler'
+import Verdict from './components/Verdict'
 import { useOracle } from './hooks/useOracle'
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion'
 
@@ -55,19 +56,7 @@ export default function App() {
 
             {phase === 'thinking' && <ThinkingCycler reducedMotion={reducedMotion} />}
 
-            {phase === 'verdict' && answer && (
-              <>
-                <PaintedText
-                  key={answer.quip}
-                  text={answer.verdict === 'yes' ? 'YES.' : 'NO.'}
-                  perChar={0.08}
-                  className={`font-display text-7xl font-bold tracking-tight sm:text-8xl ${
-                    answer.verdict === 'yes' ? 'text-stink-400' : 'text-fresh-400'
-                  }`}
-                />
-                <p className="mt-6 max-w-md text-balance text-lg text-ink">{answer.quip}</p>
-              </>
-            )}
+            {phase === 'verdict' && answer && <Verdict answer={answer} />}
           </motion.div>
         </AnimatePresence>
       </main>
