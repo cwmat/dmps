@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
+import VideoBackground from './components/VideoBackground'
 import CssAura from './components/CssAura'
 import BrainScene from './components/BrainScene'
 import PaintedText from './components/PaintedText'
@@ -15,6 +16,7 @@ export default function App() {
 
   return (
     <>
+      <VideoBackground />
       <CssAura />
       <BrainScene thinking={phase === 'thinking'} reducedMotion={reducedMotion} />
 
