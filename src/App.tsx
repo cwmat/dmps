@@ -5,6 +5,7 @@ import PaintedText from './components/PaintedText'
 import AskButton from './components/AskButton'
 import ThinkingCycler from './components/ThinkingCycler'
 import Verdict from './components/Verdict'
+import AlreadyAsked from './components/AlreadyAsked'
 import { useOracle } from './hooks/useOracle'
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion'
 
@@ -57,6 +58,8 @@ export default function App() {
             {phase === 'thinking' && <ThinkingCycler reducedMotion={reducedMotion} />}
 
             {phase === 'verdict' && answer && <Verdict answer={answer} />}
+
+            {phase === 'alreadyAsked' && answer && <AlreadyAsked answer={answer} />}
           </motion.div>
         </AnimatePresence>
       </main>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Answer, Phase } from '../types'
 import { pick, rollVerdict } from '../lib/random'
 import { QUIPS } from '../data/quips'
+import { askedToday, recordAsk } from '../lib/dailyGate'
 
 interface UseOracleOptions {
   /** Shorten the artificial "thinking" delay when motion is reduced. */
@@ -40,13 +41,25 @@ export function useOracle({ reducedMotion = false }: UseOracleOptions = {}): Ora
 
   const ask = useCallback(() => {
     if (phase !== 'landing') return
+
+    // Already asked today? Snap straight to the sassy brush-off with the
+    // verdict they already got, no re-roll.
+    const prior = askedToday()
+    if (prior) {
+      setAnswer(prior)
+      setPhase('alreadyAsked')
+      return
+    }
+
     const verdict = rollVerdict()
     const quip = pick(QUIPS[verdict])
     setPhase('thinking')
     clearTimer()
     timer.current = window.setTimeout(
       () => {
-        setAnswer({ verdict, quip })
+        const answer = { verdict, quip }
+        recordAsk(answer)
+        setAnswer(answer)
         setPhase('verdict')
       },
       reducedMotion ? THINK_MS_REDUCED : THINK_MS,
