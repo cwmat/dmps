@@ -9,4 +9,10 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: './',
   plugins: [react(), tailwindcss()],
+  resolve: {
+    // react-three-fiber runs its own reconciler; without deduping, Vite's dep
+    // pre-bundling can hand it a second copy of React and trigger
+    // "Invalid hook call / more than one copy of React". Force a single identity.
+    dedupe: ['react', 'react-dom'],
+  },
 })
