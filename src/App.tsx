@@ -27,7 +27,7 @@ export default function App() {
       </Suspense>
 
       <main className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 text-center">
-        <p className="mb-5 font-display text-xs font-medium uppercase tracking-[0.35em] text-neural-400">
+        <p className="legible mb-5 font-display text-xs font-medium uppercase tracking-[0.35em] text-[#cbbdff]">
           The Olfactory Oracle
         </p>
 
@@ -52,7 +52,7 @@ export default function App() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.1, duration: 0.8 }}
-                  className="mt-6 max-w-md text-balance text-ink-dim"
+                  className="legible mt-6 max-w-md text-balance text-ink-dim"
                 >
                   One question. One answer. Once a day. The machine has been thinking
                   about your pants for a very long time.

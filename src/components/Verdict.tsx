@@ -24,7 +24,7 @@ export default function Verdict({ answer }: { answer: Answer }) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.55, duration: 0.6, ease: [0.2, 0.65, 0.3, 0.9] }}
-        className="mt-7 max-w-lg text-balance text-xl leading-relaxed text-ink"
+        className="legible mt-7 max-w-lg text-balance text-xl leading-relaxed text-ink"
       >
         {answer.quip}
       </motion.p>
@@ -33,7 +33,7 @@ export default function Verdict({ answer }: { answer: Answer }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.9 }}
-        className="mt-11 font-display text-[0.7rem] font-medium uppercase tracking-[0.3em] text-ink-dim"
+        className="legible mt-11 font-display text-[0.7rem] font-medium uppercase tracking-[0.3em] text-ink/75"
       >
         The oracle has spoken · come back tomorrow
       </motion.p>
